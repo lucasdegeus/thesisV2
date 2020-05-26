@@ -1,0 +1,67 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <title> Vertical Menu </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript"></script>
+</head>
+
+<body>
+
+    <script type=text/javascript>
+        $(function() {
+          $('#sendText').bind('click', function() {
+              content = document.getElementById('content').innerHTML;
+              document.getElementById('formData').innerHTML = content;
+              document.getElementById('poster').submit();
+          });
+        });
+      </script>
+
+    {% if checkText %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+            </div>
+            <div class="col-sm">
+                <div style="text-align: center;">Is this the right content?
+                    <button class="btn btn-primary" type="button" id="sendText">
+                        Yes
+                    </button>
+
+                    <button class="btn btn-primary" type="button">
+                        No
+                    </button>
+                </div>
+            </div>
+            <div class="col-sm">
+            </div>
+        </div>
+    </div>
+    <div id="content">
+        {% for paragraph in checkText %}
+        <div>{{ paragraph }}</div><br>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div style="display: none;">
+        <div class="collapse" id="pasteInput">
+            <form action="" method="post" id="poster">
+                <div class="input-group">
+                    <textarea class="form-control" aria-label="With textarea" name="description"
+                        value="{{ request.form.description }}" onfocus="this.value=''"
+                        id="formData">data controller</textarea>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
