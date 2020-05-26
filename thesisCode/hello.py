@@ -1,3 +1,6 @@
+import sys
+sys.path.append('/media/lucasdegeus/Storage/thesisCode/thesisCode/venv/lib/python3.6/site-packages')
+print(sys.path)
 from flask import Flask, session, redirect, url_for, request, jsonify
 from markupsafe import escape
 from werkzeug.utils import secure_filename
@@ -15,8 +18,8 @@ from bs4 import BeautifulSoup
 import os
 import json
 
-# nltk.download('punkt')
-# nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('stopwords')
 stemmer = EnglishStemmer()
 ps = PorterStemmer()
 

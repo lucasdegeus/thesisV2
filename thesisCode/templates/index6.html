@@ -20,7 +20,7 @@
       $(function() {
         $('li#calculate').bind('click', function() {
             console.log($("#myInput").val());
-          $.getJSON('http://127.0.0.1:5000/_add_numbers', {
+          $.getJSON(window.location.origin + '/_add_numbers', {
             policy: $("#myInput").val(),
             a: $('input[name="a"]').val(),
             b: $('input[name="b"]').val()
