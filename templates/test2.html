@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Flask Intro - login page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <div class="container">
+      <h2>This tool automatically extracts information about a specific topic in privacy policies</h2>
+      <h2>Please paste your policy below</h2>
+      <br>
+      <form action="" method="post">
+        <input type="text" placeholder="topic" name="topic" value="{{
+          request.form.topic }}"><br><br><br>
+          <textarea rows = "5" cols = "60" name = "description" value="{{
+            request.form.description }}">
+            Enter details here...
+         </textarea><br><br>
+        <input class="btn btn-default" type="submit" value="Login">
+      </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    </div>
+  </body>
+</html>
