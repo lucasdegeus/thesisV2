@@ -284,6 +284,43 @@ names=['lucas', 'pieter' , 'geit']
 
 app = Flask(__name__)
 print("NewSession------------------")
+
+@app.route('/nav',  methods=['POST', 'GET'])
+def navigation():
+    return(render_template('navigationpage.html', content=["<h1 datacontroller >Eerste</h1>", "Tweede", "Derde", "Vierde"]))
+
+
+
+@app.route('/',  methods=['POST', 'GET'])
+def mainIndex():
+    if request.method == 'POST':
+        print("POSTER")
+         # check if the post request has the file part
+        if 'file' not in request.files:
+            if 'urlInput' in request.form:
+                return(render_template('checktext.html', type='get', checkText=webScraper(request.form['urlInput'])))
+            else:
+                topic = 'datacontroller'
+                policy = request.form['description']
+                cleantext = BeautifulSoup(policy, "lxml").text
+                # return(render_template('index6.html'))
+                print(len(returnCategories(cleantext).split('<h1')))
+                return(render_template('navigationpage.html', content=returnCategories(cleantext).split('<h1')))
+                # return (str(returnCategories(cleantext)))
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            return ('upload something next time')
+        if file and allowed_file(file.filename):
+            x = alles2('datacontroller',str(file.read()))
+            return render_template('index6.html', type='post', policycontent=(x))
+    print(os.listdir('policies'))
+    policies = []
+    for policy in os.listdir('policies'):
+        policies.append(policy.split(".")[0])
+    return (render_template('index.html', topics=policies))
+
 @app.route('/lucas', methods=['POST', 'GET'])
 def lucas():
     error = None
@@ -406,4 +443,5 @@ def add_numbers():
     return jsonify(policycontent)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # app.run(host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')

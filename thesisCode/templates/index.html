@@ -1,68 +1,361 @@
+<!DOCTYPE>
 <html>
-  <head>
-    <title>Flask Intro - login page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-  </head>
-  <body>
+<head>
+  <title> Vertical Menu </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('.collapse').on('show.bs.collapse', function () {
+        $('.collapse.show').each(function () {
+          $(this).collapse('hide');
+        });
+      });
+    });
+  </script>
+    <script>
+      $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+          var value = $(this).val().toLowerCase();
+          $("#myList li").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+    </script>
 
+<script type=text/javascript>
+  $(function() {
+    $('li#calculate').bind('click', function() {
+        console.log($("#myInput").val());
+      $.getJSON(window.location.origin + '/_add_numbers', {
+        policy: $("#myInput").val(),
+        a: $('input[name="a"]').val(),
+        b: $('input[name="b"]').val()
+      }, function(data) {
+        document.getElementById('invisarea').innerHTML = data;
+      //   $("#invisarea").text(data.result);
+        document.getElementById("invisSubmit").submit();
+      });
+      return false;
+    });
+  });
+</script>
+</head>
+<body style="background-color: f4f2ef;">
+<style>
+  #hero {
+  width: 100%;
+  height: 70vh;
+  background: #fef8f5;
+  border-bottom: 2px solid #fcebe3;
+  margin: 72px 0 -72px 0;
+}
 
-    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" rows = "1" cols = "1">
-        <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
-        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
-        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
-        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
-      </div>
-      <div class="tab-content" id="v-pills-tabContent">
-        <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">hi</div>
-        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
-        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
-        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
-      </div>
+#hero h1 {
+  margin: 0 0 10px 0;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 56px;
+  color: #4e4039;
+}
 
-      
-    <div class="container">
-      <h2>This tool automatically extracts information about a specific topic in privacy policies</h2>
-      <h2>Please paste your policy below</h2>
-      <br>
-      <form action="" method="post">
+#hero h2 {
+  color: #a08f86;
+  margin-bottom: 50px;
+  font-size: 24px;
+}
 
-<!-- 
-        <input type="text" placeholder="topic" name="topic" value="{{
-          request.form.topic }}"><br><br><br> -->
-        <div class="dropdown">        
-          <select id="cars" name="topic" value="{{ 
-            request.form.topic }}" class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <option class="dropdown-item" value="datacontroller">Data controller</option>
-            <option class="dropdown-item" value="saab">Saab</option>
-            <option class="dropdown-item" value="fiat">Fiat</option>
-            <option class="dropdown-item" value="audi">Audi</option>
-        </div>
-          </select>
-        </div>
+#hero .btn-get-started {
+  font-family: "Raleway", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 8px 28px;
+  border-radius: 3px;
+  transition: 0.5s;
+  margin: 10px;
+  color: #fff;
+  background: #eb5d1e;
+}
 
+#hero .btn-get-started:hover {
+  background: #ef7f4d;
+}
 
+#hero .animated {
+  animation: up-down 2s ease-in-out infinite alternate-reverse both;
+}
 
-          <textarea rows = "5" cols = "60" name = "description" value="{{
-            request.form.description }}">
-            Enter details here...
-         </textarea><br><br>
-        <input class="btn btn-default" type="submit" value="Login">
-      </form>
-      {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}
-      {% endif %}
+@media (min-width: 1024px) {
+  #hero {
+    background-attachment: fixed;
+  }
+}
 
-      {% for name in name%}
-      <h2>{{ name }}</h2>
-      {% endfor %}
+@media (max-width: 991px) {
+  #hero {
+    height: calc(100vh - 72px);
+  }
+  #hero .animated {
+    -webkit-animation: none;
+    animation: none;
+  }
+  #hero .hero-img {
+    text-align: center;
+  }
+  #hero .hero-img img {
+    width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  #hero h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  #hero h2 {
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 30px;
+  }
+  #hero .hero-img img {
+    width: 70%;
+  }
+}
+
+@media (max-width: 575px) {
+  #hero .hero-img img {
+    width: 80%;
+  }
+}
+.nav-menu, .nav-menu * {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-menu > ul > li {
+  position: relative;
+  white-space: nowrap;
+  float: left;
+}
+
+.nav-menu a {
+  display: block;
+  position: relative;
+  color: #4e4039;
+  padding: 10px 15px;
+  transition: 0.3s;
+  font-size: 15px;
+  font-family: "Open Sans", sans-serif;
+}
+
+.nav-menu a:hover, .nav-menu .active > a, .nav-menu li:hover > a {
+  color: #eb5d1e;
+  text-decoration: none;
+}
+
+.nav-menu .get-started a {
+  background: #eb5d1e;
+  color: #fff;
+  border-radius: 50px;
+  margin: 0 15px;
+  padding: 10px 25px;
+}
+
+.nav-menu .get-started a:hover {
+  background: #ee7843;
+  color: #fff;
+}
+
+.nav-menu .drop-down ul {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: calc(100% - 30px);
+  z-index: 99;
+  opacity: 0;
+  visibility: hidden;
+  padding: 10px 0;
+  background: #fff;
+  box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+  transition: ease all 0.3s;
+}
+
+.nav-menu .drop-down:hover > ul {
+  opacity: 1;
+  top: 100%;
+  visibility: visible;
+}
+
+.nav-menu .drop-down li {
+  min-width: 180px;
+  position: relative;
+}
+
+.nav-menu .drop-down ul a {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: none;
+  color: #3c1300;
+}
+
+.nav-menu .drop-down ul a:hover, .nav-menu .drop-down ul .active > a, .nav-menu .drop-down ul li:hover > a {
+  color: #eb5d1e;
+}
+
+.nav-menu .drop-down > a:after {
+  content: "\ea99";
+  font-family: IcoFont;
+  padding-left: 5px;
+}
+
+.nav-menu .drop-down .drop-down ul {
+  top: 0;
+  left: calc(100% - 30px);
+}
+
+.nav-menu .drop-down .drop-down:hover > ul {
+  opacity: 1;
+  top: 0;
+  left: 100%;
+}
+
+.nav-menu .drop-down .drop-down > a {
+  padding-right: 35px;
+}
+
+.nav-menu .drop-down .drop-down > a:after {
+  content: "\eaa0";
+  font-family: IcoFont;
+  position: absolute;
+  right: 15px;
+}
+
+@media (max-width: 1366px) {
+  .nav-menu .drop-down .drop-down ul {
+    left: -90%;
+  }
+  .nav-menu .drop-down .drop-down:hover > ul {
+    left: -100%;
+  }
+  .nav-menu .drop-down .drop-down > a:after {
+    content: "\ea9d";
+  }
+}
+#header {
+  height: 72px;
+  transition: all 0.5s;
+  z-index: 997;
+  transition: all 0.5s;
+  padding: 15px 0;
+  background: #fff;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+#header .logo h1 {
+  font-size: 30px;
+  margin: 0;
+  padding: 6px 0;
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+
+#header .logo h1 a, #header .logo h1 a:hover {
+  color: #7a6960;
+  text-decoration: none;
+}
+
+#header .logo img {
+  padding: 0;
+  margin: 0;
+  max-height: 40px;
+}
+</style>
+
+<header class="fixed-top p-3" id="header">
+  <div class="container-fluid d-flex">
+    <div class="logo mr-auto">
+      <h1 class="text-light" style="color:#7a6960 !important">
+        PolicyNav
+      </h1>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-  </body>
+    <nav class="nav-menu d-none d-lg-block">
+      <ul>
+        <li class="get-started">
+          <a href="">About</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+
+<section class="d-flex align-items-center" id="hero">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1">
+        <h1>Navigate social media network policies</h1>
+        <h2>Policynav is a tool that allows users to automatically navigate through the content of privacy policies of social media networking sites. It helps EU-citizins to find GDPR-relevant information in policies.</h2>
+        <div>
+          <a class="btn-get-started scrollto" data-toggle="collapse" data-target="#urlInput" aria-expanded="false"
+          aria-controls="pasteInput">Navigate my policy</a>
+          <a class="btn-get-started scrollto" type="button" data-toggle="collapse" data-target="#explore" aria-expanded="false"
+          aria-controls="explore" href="#explore">Browse our policy library</a>
+          
+          <form id="urlInput" action="" method="post" class="input-group mb-3 collapse" style="padding-left: 9px; padding-right:41px;">
+            <input type="text" class="form-control" placeholder="Paste policy URL here" name="urlInput" value="{{
+              request.form.urlInput }}" style="width: 40%;">
+            <div class="input-group-append">
+              <input class="btn btn-outline-secondary"  type="submit" value="Go!">
+            </div>
+          </form>
+
+        </div>
+      </div>
+      <div class="col-lg-6 order-1 order-lg-2 hero-img">
+        <img src="{{url_for('static', filename='icon.png')}}" class="class="img-fluid animated">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="align-items-center collapse" id="explore" style="background-color: f4f2ef !important;">
+<div class="container d-flex justify-content-center">
+    <form action="" method="post" id="invisSubmit" style="width:100%;">
+      <textarea id="invisarea" style="display: none;" name="description"
+        value="{{ request.form.description }}"></textarea>
+      <input class="form-control text-center" id="myInput" type="text" placeholder="Search.." style=" border: 1px solid #eb5d1e;">
+      <br>
+      <ul class="list-group" id="myList">
+        {% for topic in topics %}
+        {% if 'ipy' not in topic %}
+        <li id=calculate class="list-group-item text-center" onclick="document.getElementById('myInput').value = '{{ topic }}'"
+          style="cursor:pointer;" >{{ topic }}</li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </form>
+  </div>
+</section>
+<footer class="page-footer font-small blue" style="position: fixed !important; bottom:0 !important; width: 100% !important;">
+  <div class="row text-right">
+    <div class="col">
+      <a href="https://github.com/lucasdegeus/thesisV2" target="_blank">
+      <img src="{{url_for('static', filename='githublogo.png')}}" class="img-fluid animated" style="width: 75px;">
+      </a>
+
+    </div>
+  </div>
+
+</footer>
+</body>
 </html>
