@@ -23,21 +23,21 @@ nltk.download('stopwords')
 stemmer = EnglishStemmer()
 ps = PorterStemmer()
 
-pinterest = open("policies/pinterest.txt",encoding="utf8").read()
-reddit = open("policies/reddit.txt",encoding="utf8").read()
-linkedin = open("policies/linkedin.txt",encoding="utf8").read()
-yahoo = open("policies/yahoo.txt",encoding="utf8").read()
-spotify = open("policies/spotify.txt",encoding="utf8").read()
-tumblr = open("policies/tumblr.txt",encoding="utf8").read()
-snapchat = open("policies/snapchat.txt",encoding="utf8").read()
-flickr = open("policies/flickr.txt",encoding="utf8").read()
-telegram = open("policies/telegram.txt",encoding="utf8").read()
+pinterest = open("/home/thesis/myproject/thesisV2/thesisCode/policies/pinterest.txt",encoding="utf8").read()
+reddit = open("/home/thesis/myproject/thesisV2/thesisCode/policies/reddit.txt",encoding="utf8").read()
+linkedin = open("/home/thesis/myproject/thesisV2/thesisCode/policies/linkedin.txt",encoding="utf8").read()
+yahoo = open("/home/thesis/myproject/thesisV2/thesisCode/policies/yahoo.txt",encoding="utf8").read()
+spotify = open("/home/thesis/myproject/thesisV2/thesisCode/policies/spotify.txt",encoding="utf8").read()
+tumblr = open("/home/thesis/myproject/thesisV2/thesisCode/policies/tumblr.txt",encoding="utf8").read()
+snapchat = open("/home/thesis/myproject/thesisV2/thesisCode/policies/snapchat.txt",encoding="utf8").read()
+flickr = open("/home/thesis/myproject/thesisV2/thesisCode/policies/flickr.txt",encoding="utf8").read()
+telegram = open("/home/thesis/myproject/thesisV2/thesisCode/policies/telegram.txt",encoding="utf8").read()
 ########################################################################
-whatsapp = open("policies/whatsapp.txt",encoding="utf8").read()
-facebook = open("policies/facebook.txt",encoding="utf8").read()
-twitter = open("policies/twitter.txt",encoding="utf8").read()
-instagram = open("policies/instagram.txt",encoding="utf8").read()
-google = open("policies/google.txt",encoding="utf8").read()
+whatsapp = open("/home/thesis/myproject/thesisV2/thesisCode/policies/whatsapp.txt",encoding="utf8").read()
+facebook = open("/home/thesis/myproject/thesisV2/thesisCode/policies/facebook.txt",encoding="utf8").read()
+twitter = open("/home/thesis/myproject/thesisV2/thesisCode/policies/twitter.txt",encoding="utf8").read()
+instagram = open("/home/thesis/myproject/thesisV2/thesisCode/policies/instagram.txt",encoding="utf8").read()
+google = open("/home/thesis/myproject/thesisV2/thesisCode/policies/google.txt",encoding="utf8").read()
        
 def tokenizePolicy(textfile):
     policy_token = [word.lower()  for word in word_tokenize(textfile)]
@@ -183,7 +183,7 @@ def printContext(indexes, full_policy):
 # #     print(sortedIndex, topicIndex)
 # check = alles2(topic_datacontrol, reddit)
 
-jsonfile = open('example.json')
+jsonfile = open('/home/thesis/myproject/thesisV2/thesisCode/example.json')
 jsonstr = jsonfile.read()
 def topicDefiner(topic):
     if topic == 'datacontroller':
@@ -407,7 +407,7 @@ def index6():
 
 @app.route('/text')
 def hello_world():
-    f = open("text.txt", "r")
+    f = open("/home/thesis/myproject/thesisV2/thesisCode/text.txt", "r")
     return(escape(f.read()))
 
 
@@ -479,7 +479,7 @@ def add_numbers():
     a = request.args.get('a', 0, type=int)
     b = request.args.get('b', 0, type=int)
     c = request.args.get('policy')
-    policycontent = open("policies/" + c + ".txt",encoding="utf8").read()
+    policycontent = open("/home/thesis/myproject/thesisV2/thesisCode/policies/" + c + ".txt",encoding="utf8").read()
     return jsonify(policycontent)
 
 if __name__ == '__main__':
