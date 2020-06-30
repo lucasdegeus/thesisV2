@@ -23,21 +23,21 @@ nltk.download('stopwords')
 stemmer = EnglishStemmer()
 ps = PorterStemmer()
 
-pinterest = open("/home/thesis/myproject/thesisV2/thesisCode/policies/pinterest.txt",encoding="utf8").read()
-reddit = open("/home/thesis/myproject/thesisV2/thesisCode/policies/reddit.txt",encoding="utf8").read()
-linkedin = open("/home/thesis/myproject/thesisV2/thesisCode/policies/linkedin.txt",encoding="utf8").read()
-yahoo = open("/home/thesis/myproject/thesisV2/thesisCode/policies/yahoo.txt",encoding="utf8").read()
-spotify = open("/home/thesis/myproject/thesisV2/thesisCode/policies/spotify.txt",encoding="utf8").read()
-tumblr = open("/home/thesis/myproject/thesisV2/thesisCode/policies/tumblr.txt",encoding="utf8").read()
-snapchat = open("/home/thesis/myproject/thesisV2/thesisCode/policies/snapchat.txt",encoding="utf8").read()
-flickr = open("/home/thesis/myproject/thesisV2/thesisCode/policies/flickr.txt",encoding="utf8").read()
-telegram = open("/home/thesis/myproject/thesisV2/thesisCode/policies/telegram.txt",encoding="utf8").read()
+pinterest = open("policies/pinterest.txt",encoding="utf8").read()
+reddit = open("policies/reddit.txt",encoding="utf8").read()
+linkedin = open("policies/linkedin.txt",encoding="utf8").read()
+yahoo = open("policies/yahoo.txt",encoding="utf8").read()
+spotify = open("policies/spotify.txt",encoding="utf8").read()
+tumblr = open("policies/tumblr.txt",encoding="utf8").read()
+snapchat = open("policies/snapchat.txt",encoding="utf8").read()
+flickr = open("policies/flickr.txt",encoding="utf8").read()
+telegram = open("policies/telegram.txt",encoding="utf8").read()
 ########################################################################
-whatsapp = open("/home/thesis/myproject/thesisV2/thesisCode/policies/whatsapp.txt",encoding="utf8").read()
-facebook = open("/home/thesis/myproject/thesisV2/thesisCode/policies/facebook.txt",encoding="utf8").read()
-twitter = open("/home/thesis/myproject/thesisV2/thesisCode/policies/twitter.txt",encoding="utf8").read()
-instagram = open("/home/thesis/myproject/thesisV2/thesisCode/policies/instagram.txt",encoding="utf8").read()
-google = open("/home/thesis/myproject/thesisV2/thesisCode/policies/google.txt",encoding="utf8").read()
+whatsapp = open("policies/whatsapp.txt",encoding="utf8").read()
+facebook = open("policies/facebook.txt",encoding="utf8").read()
+twitter = open("policies/twitter.txt",encoding="utf8").read()
+instagram = open("policies/instagram.txt",encoding="utf8").read()
+google = open("policies/google.txt",encoding="utf8").read()
        
 def tokenizePolicy(textfile):
     policy_token = [word.lower()  for word in word_tokenize(textfile)]
@@ -147,10 +147,11 @@ def ranker(sortedIndex, topicIndex, stemmedpolicy, wordcounted):
         for word in wordcounted:
             if word[0] == stemmedpolicy[item]:
                 occurencesTraining = int(word[1])
-        rankedWords[item] = topicIndex[item] / sortedIndex[item] * occurencesTraining
+        rankedWords[item] = topicIndex[item]**2 / sortedIndex[item] * occurencesTraining
     for item,value in rankedWords.items():
         if value == rankedWords[max(rankedWords, key=rankedWords.get)]:
             maximum[item] = value
+            print(maximum[item], item)
     return(maximum)
 
 def minimumFrequency(sortedIndexes):
@@ -182,7 +183,7 @@ def printContext(indexes, full_policy):
 # #     print(sortedIndex, topicIndex)
 # check = alles2(topic_datacontrol, reddit)
 
-jsonfile = open('/home/thesis/myproject/thesisV2/thesisCode/example.json')
+jsonfile = open('example.json')
 jsonstr = jsonfile.read()
 def topicDefiner(topic):
     if topic == 'datacontroller':
@@ -249,19 +250,47 @@ def returnCategories(policy):
 
     categories = [datacontroller, purpose, legalbasis, recipients, retention,request, profiling,personaldata ]
     for category in categories:
-        for value in category:
-            if type(value) == str:
-                next
-            else:
-                try:
-                    categorizedPolicy[value-25] = "<h1> SECTION:" + category[-1] + "</h1>" + "<div id='" + category[-1] + "'>" + "<b>" + categorizedPolicy[value-25]
-                except:
-                    categorizedPolicy[value] = "<div id='" + category[-1] + "'>" + "<b>" + categorizedPolicy[value]
-                try:
-                    categorizedPolicy[value+25] = categorizedPolicy[value+25] + "</b></div>"
-                except:
-                    categorizedPolicy[value] = categorizedPolicy[value] + "</b></div>"
+        value = category[-2]
+                # try:
+                #     categorizedPolicy[value-25] = "<h1> SECTION:" + category[-1] + "</h1>" + "<div id='" + category[-1] + "'>" + "<b>" + categorizedPolicy[value-25]
+                # except:
+                #     categorizedPolicy[value] = "<div id='" + category[-1] + "'>" + "<b>" + categorizedPolicy[value]
+                # try:
+                #     categorizedPolicy[value+25] = categorizedPolicy[value+25] + "</b></div>"
+                # except:
+                #     categorizedPolicy[value] = categorizedPolicy[value] + "</b></div>"
+
+                
+        try:
+            categorizedPolicy[value-15] = "<h1 id=' SECTION:" + category[-1] + " '>" + categorizedPolicy[value-15]
+        except:
+            categorizedPolicy[value] = "<h1 SECTION:" + category[-1] + " >" + categorizedPolicy[value]
+    print(categorizedPolicy[3023-25:3023])
     return(" ".join(categorizedPolicy))
+
+
+    #     for value in category:
+
+    #         if type(value) == str:
+    #             next
+    #         else:
+
+    #             # try:
+    #             #     categorizedPolicy[value-25] = "<h1> SECTION:" + category[-1] + "</h1>" + "<div id='" + category[-1] + "'>" + "<b>" + categorizedPolicy[value-25]
+    #             # except:
+    #             #     categorizedPolicy[value] = "<div id='" + category[-1] + "'>" + "<b>" + categorizedPolicy[value]
+    #             # try:
+    #             #     categorizedPolicy[value+25] = categorizedPolicy[value+25] + "</b></div>"
+    #             # except:
+    #             #     categorizedPolicy[value] = categorizedPolicy[value] + "</b></div>"
+
+                
+    #             try:
+    #                 categorizedPolicy[value-15] = "<h1 id=' SECTION:" + category[-1] + " '>" + categorizedPolicy[value-15]
+    #             except:
+    #                 categorizedPolicy[value] = "<h1 SECTION:" + category[-1] + " >" + categorizedPolicy[value]
+    # print(categorizedPolicy[3023-25:3023])
+    # return(" ".join(categorizedPolicy))
 
     #//
 
@@ -285,6 +314,16 @@ names=['lucas', 'pieter' , 'geit']
 app = Flask(__name__)
 print("NewSession------------------")
 
+@app.route('/tester')
+def tester():
+    print("hi")
+    return(render_template('tester.html'))
+
+@app.route('/about')
+def about():
+    print("hi")
+    return(render_template('about.html'))
+
 @app.route('/nav',  methods=['POST', 'GET'])
 def navigation():
     return(render_template('navigationpage.html', content=["<h1 datacontroller >Eerste</h1>", "Tweede", "Derde", "Vierde"]))
@@ -298,6 +337,7 @@ def mainIndex():
          # check if the post request has the file part
         if 'file' not in request.files:
             if 'urlInput' in request.form:
+                print("hi")
                 return(render_template('checktext.html', type='get', checkText=webScraper(request.form['urlInput'])))
             else:
                 topic = 'datacontroller'
@@ -315,9 +355,9 @@ def mainIndex():
         if file and allowed_file(file.filename):
             x = alles2('datacontroller',str(file.read()))
             return render_template('index6.html', type='post', policycontent=(x))
-    print(os.listdir('/home/thesis/myproject/thesisV2/thesisCode/policies'))
+    print(os.listdir('policies'))
     policies = []
-    for policy in os.listdir('/home/thesis/myproject/thesisV2/thesisCode/policies'):
+    for policy in os.listdir('policies'):
         policies.append(policy.split(".")[0])
     return (render_template('index.html', topics=policies))
 
@@ -439,7 +479,7 @@ def add_numbers():
     a = request.args.get('a', 0, type=int)
     b = request.args.get('b', 0, type=int)
     c = request.args.get('policy')
-    policycontent = open("/home/thesis/myproject/thesisV2/thesisCode/policies/" + c + ".txt",encoding="utf8").read()
+    policycontent = open("policies/" + c + ".txt",encoding="utf8").read()
     return jsonify(policycontent)
 
 if __name__ == '__main__':

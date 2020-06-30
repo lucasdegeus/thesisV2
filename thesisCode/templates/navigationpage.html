@@ -240,13 +240,15 @@
     max-height: 40px;
   }
   </style>
-  <body style="background-color: f4f2ef;">
-    <header class="fixed-top p-3" id="header">
+  <body style="background-color: fef8f5;">
+    <!-- <header class="fixed-top p-3" id="header">
         <div class="container-fluid d-flex">
           <div class="logo mr-auto">
-            <h1 class="text-light" style="color:#7a6960 !important">
-              PolicyNav
-            </h1>
+            <a href="http://localhost:5000/" style="text-decoration: none;">
+              <h1 class="text-light" style="color:#7a6960 !important;">
+                PolicyNav
+              </h1>
+              </a>
           </div>
           <nav class="nav-menu d-none d-lg-block">
             <ul>
@@ -256,35 +258,103 @@
             </ul>
           </nav>
         </div>
-      </header>
+      </header> -->
+      <!-- <div style="position: fixed; top:2%;left:2%;"></div>
+      <div class="logo mr-auto">
+        <a href="http://localhost:5000/" style="text-decoration: none;">
+          <h1 class="text-light" style="color:#7a6960 !important;">
+            PolicyNav
+          </h1>
+          </a>
+      </div> -->
 
-      <section class="d-flex align-items-center" id="hero">
+      <div style="position: fixed; top:2%;left:2%;">
+        <a href="http://localhost:5000/" style="text-decoration: none;">
+          <h1 class="text-light" style="color:#7a6960 !important;">
+            PolicyNav
+          </h1>
+          </a>
+      </div>
+      
+      <div style="position: fixed; top:20%;left:2%;">
+        <a href="#datacontroller"><button class="btn btn-primary mb-2" style="width:140px;background:#eb5d1f !important; border-radius: 3px !important; font-weight:500 !important; font-size:16px !important; border-color: #eb5d1f !important;">
+          Datacontroller
+      </button></a><br>
+      <a href="#purpose"><button class="btn btn-primary mb-2" style="width:140px;background:#eb5d1f !important; border-radius: 3px !important; font-weight:500 !important; font-size:16px !important; border-color: #eb5d1f !important;">
+        Purpose
+    </button></a><br>
+    <a href="#legalbasis"><button class="btn btn-primary mb-2" style="width:140px;background:#eb5d1f !important; border-radius: 3px !important; font-weight:500 !important; font-size:16px !important; border-color: #eb5d1f !important;">
+      Legalbasis
+  </button></a><br>
+  <a href="#recipients"><button class="btn btn-primary mb-2" style="width:140px;background:#eb5d1f !important; border-radius: 3px !important; font-weight:500 !important; font-size:16px !important; border-color: #eb5d1f !important;">
+    Recipients
+</button></a><br>
+<a href="#retention"><button class="btn btn-primary mb-2" style="width:140px;background:#eb5d1f !important; border-radius: 3px !important; font-weight:500 !important; font-size:16px !important; border-color: #eb5d1f !important;">
+  Retention
+</button></a><br>
+<a href="#request"><button class="btn btn-primary mb-2" style="width:140px;background:#eb5d1f !important; border-radius: 3px !important; font-weight:500 !important; font-size:16px !important; border-color: #eb5d1f !important;">
+  Rectification
+</button></a><br>
+<a href="#profiling"><button class="btn btn-primary mb-2" style="width:140px;background:#eb5d1f !important; border-radius: 3px !important; font-weight:500 !important; font-size:16px !important; border-color: #eb5d1f !important;">
+  Profiling
+</button></a><br>
+<a href="#personaldata"><button class="btn btn-primary mb-2" style="width:140px;background:#eb5d1f !important; border-radius: 3px !important; font-weight:500 !important; font-size:16px !important; border-color: #eb5d1f !important;">
+  Personal data
+</button></a>
+      </div>
+
+      <section id="hero" style="align-items: unset !important; margin: 20px 0 -72px 0 !important;">
         <div class="container">
+
             {% for letter in content %}
-            {% if '<h1' in letter %}
+            {% if 'SECTION:' in letter %}
                 {% if 'SECTION:datacontroller' in letter %}
-                <p id="datacontroller">{{ letter|striptags }}</p>
+                <p id="datacontroller"><span class="badge badge-secondary mr-2" style="background-color: #eb5d1e;">Datacontroller</span>{{ letter|striptags }}</p>
+                <script>
+                  document.getElementById('datacontroller').innerHTML = document.getElementById('datacontroller').innerHTML.replace("id=' SECTION:datacontroller '&gt;",'');
+                </script>
                 {% endif %}
                 {% if 'SECTION:purpose' in letter %}
-                <p id="purpose">{{ letter|striptags }}</p>
+                <p id="purpose"><span class="badge badge-secondary mr-2" style="background-color: #eb5d1e;">Purpose</span>{{ letter|striptags }}</p>
+                <script>
+                  document.getElementById('purpose').innerHTML = document.getElementById('purpose').innerHTML.replace("id=' SECTION:purpose '&gt;",'');
+                </script>
                 {% endif %}
                 {% if 'SECTION:legalbasis' in letter %}
-                <p id="legalbasis">{{ letter|striptags }}</p>
+                <p id="legalbasis"><span class="badge badge-secondary mr-2" style="background-color: #eb5d1e;">Legal basis</span>{{ letter|striptags }}</p>
+                <script>
+                  document.getElementById('legalbasis').innerHTML = document.getElementById('legalbasis').innerHTML.replace("id=' SECTION:legalbasis '&gt;",'');
+                </script>
                 {% endif %}
                 {% if 'SECTION:recipients' in letter %}
-                <p id="recipients">{{ letter|striptags }}</p>
+                <p id="recipients"><span class="badge badge-secondary mr-2" style="background-color: #eb5d1e;">Recipients</span>{{ letter|striptags }}</p>
+                <script>
+                  document.getElementById('recipients').innerHTML = document.getElementById('recipients').innerHTML.replace("id=' SECTION:recipients '&gt;",'');
+                </script>
                 {% endif %}
                 {% if 'SECTION:retention' in letter %}
-                <p id="retention">{{ letter|striptags }}</p>
+                <p id="retention"><span class="badge badge-secondary mr-2" style="background-color: #eb5d1e;">Retention</span>{{ letter|striptags }}</p>
+                <script>
+                  document.getElementById('retention').innerHTML = document.getElementById('retention').innerHTML.replace("id=' SECTION:retention '&gt;",'');
+                </script>
                 {% endif %}
                 {% if 'SECTION:request' in letter %}
-                <p id="request">{{ letter|striptags }}</p>
+                <p id="request"><span class="badge badge-secondary mr-2" style="background-color: #eb5d1e;">Rectification</span>{{ letter|striptags }}</p>
+                <script>
+                  document.getElementById('request').innerHTML = document.getElementById('request').innerHTML.replace("id=' SECTION:request '&gt;",'');
+                </script>
                 {% endif %}
                 {% if 'SECTION:profiling' in letter %}
-                <p id="profiling">{{ letter|striptags }}</p>
+                <p id="profiling"><span class="badge badge-secondary mr-2" style="background-color: #eb5d1e;">Profiling</span>{{ letter|striptags }}</p>
+                <script>
+                  document.getElementById('profiling').innerHTML = document.getElementById('profiling').innerHTML.replace("id=' SECTION:profiling '&gt;",'');
+                </script>
                 {% endif %}
                 {% if 'SECTION:personaldata' in letter %}
-                <p id="personaldata">{{ letter|striptags }}</p>
+                <p id="personaldata"><span class="badge badge-secondary mr-2" style="background-color: #eb5d1e;">Personal data</span>{{ letter|striptags }}</p>
+                <script>
+                  document.getElementById('personaldata').innerHTML = document.getElementById('personaldata').innerHTML.replace("id=' SECTION:personaldata '&gt;",'');
+                </script>
                 {% endif %}
             {% else %}
                 <p> {{ letter }}</p>
@@ -292,7 +362,6 @@
             {% endfor %}
         </div>
       </section>
-      <!-- {{ content }} -->
 
       <footer class="page-footer font-small blue" style="position: fixed !important; bottom:0 !important; width: 100% !important;">
         <div class="row text-right">

@@ -292,7 +292,7 @@
     <nav class="nav-menu d-none d-lg-block">
       <ul>
         <li class="get-started">
-          <a href="http://localhost:5000/about">About</a>
+          <a href="">About</a>
         </li>
       </ul>
     </nav>
@@ -301,53 +301,39 @@
 
 
 
-<section class="d-flex align-items-center" id="hero">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1">
-        <h1>Navigate social media network policies</h1>
-        <h2>Policynav is a tool that allows users to automatically navigate through the content of privacy policies of social media networking sites. It helps EU-citizins to find GDPR-relevant information in policies.</h2>
-        <div>
-          <a class="btn-get-started scrollto" data-toggle="collapse" data-target="#urlInput" aria-expanded="false"
-          aria-controls="pasteInput">Navigate my policy</a>
-          <a class="btn-get-started scrollto" type="button" data-toggle="collapse" data-target="#explore" aria-expanded="false"
-          aria-controls="explore" href="#explore">Browse our policy library</a>
-          
-          <form id="urlInput" action="" method="post" class="input-group mb-3 collapse" style="padding-left: 9px; padding-right:41px;">
-            <input type="text" class="form-control" placeholder="Paste policy URL here" name="urlInput" value="{{
-              request.form.urlInput }}" style="width: 40%;">
-            <div class="input-group-append">
-              <input class="btn btn-outline-secondary"  type="submit" value="Go!">
-            </div>
-          </form>
+<section class="d-flex align-items-center" id="hero" style="display: block !important; height: unset !important;">
+  <div class="container mt-6">
+    <h2>The internet has been one of the most growing technologies. The number of users increased from 413 million in 2000 to over 3.4 billion in 2016 <a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" target="_blank">[1]</a>. With the rise of social
+        media services and the increase in online services, people are spending more time
+        online than before. The dominant business model for the social media services on the
+        internet is targeted/personal advertising, which is built on user profiling <a href="https://www.sciencedirect.com/science/article/abs/pii/S0263237308000200" target="_blank">[2]</a>. Profiling
+        requires data collection and analysis about the personal data of those users.
+        <br><br>
+        The General Data Protection Regulation <a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" target="_blank">(GDPR)</a>
+        , introduced on May 25, 2018, requires all companies that provide services that handle personal data of users located in
+        the EU to inform these users about the way their data is processed. This information is
+        often presented in the form of a privacy policy or terms of service. Navigating through
+        the contents of privacy policies which are normally long and difficult to read can be
+        exhaustive. A study from Ober et al. suggest that an average adult would need 29-32
+        minutes to read a privacy policy for joining a social networking service <a href="https://www.tandfonline.com/doi/abs/10.1080/1369118X.2018.1486870" target="_blank">[3]</a>. The same
+        study concludes that reading all privacy policies you encounter in a year would take 76
+        work days to read. It is therefore not surprising that hardly anyone reads them.
+        Besides the length, most privacy policies lack readability which makes it hard to understand the content <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.109.5114
+        " target="_blank">[4]</a>. A survey from Deloitte with over 51000 respondents across
+        33 countries shows that 91% of the respondents is willing to accept legal terms and
+        conditions for mobile apps and service providers without reading them <a href="https://www2.deloitte.com/content/dam/Deloitte/us/Documents/technology-media-telecommunications/Global%20mobile%20consumer%20survey%20extended%20version.pdf" target="_blank">[5]</a>. Only 13%
+        of the respondents never share their personal information without reading the terms and
+        conditions.
+        <br><br>
+        This tool is designed to help users navigate through privacy policies faster and make it possible to read the most important information from policies.
+        <br><br>
+        <a href="https://github.com/lucasdegeus/thesisV2" target="_blank">GitHub</a>
+        
 
-        </div>
-      </div>
-      <div class="col-lg-6 order-1 order-lg-2 hero-img">
-        <img src="{{url_for('static', filename='icon.png')}}" class="class="img-fluid animated">
-      </div>
-    </div>
+    </h2>
   </div>
 </section>
 
-<section class="align-items-center collapse" id="explore" style="background-color: f4f2ef !important;">
-<div class="container d-flex justify-content-center">
-    <form action="" method="post" id="invisSubmit" style="width:100%;">
-      <textarea id="invisarea" style="display: none;" name="description"
-        value="{{ request.form.description }}"></textarea>
-      <input class="form-control text-center" id="myInput" type="text" placeholder="Search.." style=" border: 1px solid #eb5d1e;">
-      <br>
-      <ul class="list-group" id="myList">
-        {% for topic in topics %}
-        {% if 'ipy' not in topic %}
-        <li id=calculate class="list-group-item text-center" onclick="document.getElementById('myInput').value = '{{ topic }}'"
-          style="cursor:pointer;" >{{ topic }}</li>
-        {% endif %}
-        {% endfor %}
-      </ul>
-    </form>
-  </div>
-</section>
 <footer class="page-footer font-small blue" style="position: fixed !important; bottom:0 !important; width: 100% !important;">
   <div class="row text-right">
     <div class="col">
