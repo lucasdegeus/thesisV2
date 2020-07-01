@@ -355,9 +355,9 @@ def mainIndex():
         if file and allowed_file(file.filename):
             x = alles2('datacontroller',str(file.read()))
             return render_template('index6.html', type='post', policycontent=(x))
-    print(os.listdir('policies'))
+    print(os.listdir('home/thesis/myproject/thesisV2/thesisCode/policies'))
     policies = []
-    for policy in os.listdir('policies'):
+    for policy in os.listdir('home/thesis/myproject/thesisV2/thesisCode/policies'):
         policies.append(policy.split(".")[0])
     return (render_template('index.html', topics=policies))
 
@@ -398,9 +398,9 @@ def index6():
         if file and allowed_file(file.filename):
             x = alles2('datacontroller',str(file.read()))
             return render_template('index6.html', type='post', policycontent=(x))
-    print(os.listdir('policies'))
+    print(os.listdir('home/thesis/myproject/thesisV2/thesisCode/policies'))
     policies = []
-    for policy in os.listdir('policies'):
+    for policy in os.listdir('home/thesis/myproject/thesisV2/thesisCode/policies'):
         policies.append(policy.split(".")[0])
     return (render_template('index6.html', type='get', topics=policies))
 
