@@ -26,14 +26,7 @@
         });
       });
     </script>
-<script>
-  function home() {
-    window.open(window.location.origin, name="_self");
-  }
-  function about() {
-    window.open(window.location.origin+"/about", name="_self")
-  }
-  </script>
+
 <script type=text/javascript>
   $(function() {
     $('li#calculate').bind('click', function() {
@@ -284,10 +277,6 @@
     margin: 0;
     max-height: 40px;
   }
-
-  #loader {
-    height: 500px !important;
-  }
   </style>
 <body style="background-color: f4f2ef;">
 
@@ -301,30 +290,10 @@
         });
       </script>
 
-<script type=text/javascript>
-  $(function() {
-    $('#noPressed').bind('click', function() {
-        document.getElementById('hider').style.display = "none";
-        document.getElementById('shower').style.display = "flex";
-
-    });
-  });
-</script>
-
-<script type=text/javascript>
-  $(function() {
-    $('#myInput').bind('click', function() {
-        content = document.getElementById('loader').innerHTML;
-        document.getElementById('formData').innerHTML = content;
-        document.getElementById('poster').submit();
-    });
-  });
-</script>
-
 <header class="fixed-top p-3" id="header">
     <div class="container-fluid d-flex">
       <div class="logo mr-auto">
-        <a onclick="home()" style="text-decoration: none;">
+        <a href="http://localhost:5000/" style="text-decoration: none;">
           <h1 class="text-light" style="color:#7a6960 !important;">
             PolicyNav
           </h1>
@@ -333,7 +302,7 @@
       <nav class="nav-menu d-none d-lg-block">
         <ul>
           <li class="get-started">
-            <a onclick="about()">About</a>
+            <a href="">About</a>
           </li>
         </ul>
       </nav>
@@ -341,55 +310,21 @@
   </header>
 
 <section class="d-flex align-items-center" id="hero" style="align-items: unset !important">
-    {% if checkText %}
-    <div class="container" id="hider">
-        <div class="row align-items-center mb-4">
-                <div style="text-align: center; width: 100%;">
-                    <h1 style="font-size: 30px; margin:0 0 0 0;">Is this the right content?</h1>
-                    <button class="btn btn-primary btn-lg" type="button" id="sendText" style="background:green !important; border-radius: 3px !important; font-weight:500 !important; font-size:16px !important; border-color: green !important;">
-                        Yes
-                    </button>
-
-                    <button class="btn btn-primary btn-lg" type="button" id="noPressed" style="background:red !important; border-radius: 3px !important; font-weight:500 !important; font-size:16px !important; border-color: red !important;">
-                        No
-                    </button>
-                </div>
-        </div>
-    <div id="content" class="row">
-        {% for paragraph in checkText %}
-        <div>{{ paragraph }}</div><br>
-        {% endfor %}
+    <div class="container">
+        <div class="" id="pasteInput">
+            <form action="" method="post">
+              <div class="input-group">
+                <textarea class="form-control" aria-label="With textarea" name="description"
+                  value="{{ request.form.description }}" onfocus="this.value=''">data controller</textarea>
+              </div>
+              <input class="btn btn-primary" type="submit" value="Submit">
+            </form>
+          </div>  
     </div>
-    {% endif %}
-    </div>
-
-    <div class="container" id="shower" style="display: none;">
-      <div class="align-middle mt-5" id="pasteInput"  style="width:100% !important; height: 100px;">
-        <h2 text-center>
-        Unfortunately this tool is not yet capable of extracting all privacy policies from the web.<br> You will have to paste the contents of the privacy policy yourself and press Go.
-        </h2>  
-        <form action="" method="post">
-            <div class="input-group">
-              <textarea id="loader" class="form-control" aria-label="With textarea" name="description"
-                value="{{ request.form.description }}" onfocus="this.value=''">Paste policy content</textarea>
-                <input class="btn-get-started" id="myInput" type="submit" value="Go" style=" border: 1px solid #eb5d1e; margin:0 !important; padding:10px !important ">
-            </div>
-          </form>
-        </div>  
-  </div>
 </section>
-<div style="display: none;"> <div class="collapse" id="pasteInput"> <form action="" method="post" id="poster"> <div class="input-group"> <textarea class="form-control" aria-label="With textarea" name="description" value="{{ request.form.description }}" onfocus="this.value=''" id="formData">data controller</textarea> </div> <input class="btn btn-primary" type="submit" value="Submit"> </form> </div> </div>
-<footer class="page-footer font-small blue" style="position: fixed !important; bottom:0 !important; width: 100% !important;">
-  <div class="row text-right">
-    <div class="col">
-      <a href="https://github.com/lucasdegeus/thesisV2" target="_blank">
-      <img src="{{url_for('static', filename='githublogo.png')}}" class="img-fluid animated" style="width: 75px;">
-      </a>
 
-    </div>
-  </div>
 
-</footer>
+
 </body>
 
 </html>

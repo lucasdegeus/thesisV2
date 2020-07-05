@@ -1,7 +1,6 @@
 import sys
 sys.path.append('/media/lucasdegeus/Storage/thesisCode/thesisCode/venv/lib/python3.6/site-packages')
-print(sys.path)
-from flask import Flask, session, redirect, url_for, request, jsonify
+from flask import Flask, session, redirect, url_for, request, jsonify,abort
 from markupsafe import escape
 from werkzeug.utils import secure_filename
 from flask import render_template
@@ -147,10 +146,11 @@ def ranker(sortedIndex, topicIndex, stemmedpolicy, wordcounted):
         for word in wordcounted:
             if word[0] == stemmedpolicy[item]:
                 occurencesTraining = int(word[1])
-        rankedWords[item] = topicIndex[item] / sortedIndex[item] * occurencesTraining
+        rankedWords[item] = topicIndex[item]**2 / sortedIndex[item] * occurencesTraining
     for item,value in rankedWords.items():
         if value == rankedWords[max(rankedWords, key=rankedWords.get)]:
             maximum[item] = value
+            print(maximum[item], item)
     return(maximum)
 
 def minimumFrequency(sortedIndexes):
@@ -221,47 +221,78 @@ def returnTopIndex(topic, policy):
 
 
 def returnCategories(policy):
-    categorizedPolicy = tokenizePolicy(policy)
+    try:
+        categorizedPolicy = tokenizePolicy(policy)
 
-    datacontroller = list(returnTopIndex(topicDefiner('datacontroller'), policy))
-    datacontroller.append('datacontroller')
+        datacontroller = list(returnTopIndex(topicDefiner('datacontroller'), policy))
+        datacontroller.append('datacontroller')
 
-    purpose = list(returnTopIndex(topicDefiner('purpose'), policy))
-    purpose.append('purpose')
+        purpose = list(returnTopIndex(topicDefiner('purpose'), policy))
+        purpose.append('purpose')
 
-    legalbasis = list(returnTopIndex(topicDefiner('legalbasis'), policy))
-    legalbasis.append('legalbasis')
+        legalbasis = list(returnTopIndex(topicDefiner('legalbasis'), policy))
+        legalbasis.append('legalbasis')
 
-    recipients = list(returnTopIndex(topicDefiner('recipients'), policy))
-    recipients.append('recipients')
+        recipients = list(returnTopIndex(topicDefiner('recipients'), policy))
+        recipients.append('recipients')
 
-    retention = list(returnTopIndex(topicDefiner('retention'), policy))
-    retention.append('retention')
+        retention = list(returnTopIndex(topicDefiner('retention'), policy))
+        retention.append('retention')
 
-    request = list(returnTopIndex(topicDefiner('request'), policy))
-    request.append('request')
+        request = list(returnTopIndex(topicDefiner('request'), policy))
+        request.append('request')
 
-    profiling = list(returnTopIndex(topicDefiner('profiling'), policy))
-    profiling.append('profiling')
+        profiling = list(returnTopIndex(topicDefiner('profiling'), policy))
+        profiling.append('profiling')
 
-    personaldata = list(returnTopIndex(topicDefiner('personaldata'), policy))
-    personaldata.append('personaldata')
+        personaldata = list(returnTopIndex(topicDefiner('personaldata'), policy))
+        personaldata.append('personaldata')
 
-    categories = [datacontroller, purpose, legalbasis, recipients, retention,request, profiling,personaldata ]
-    for category in categories:
-        for value in category:
-            if type(value) == str:
-                next
-            else:
-                try:
-                    categorizedPolicy[value-25] = "<h1> SECTION:" + category[-1] + "</h1>" + "<div id='" + category[-1] + "'>" + "<b>" + categorizedPolicy[value-25]
-                except:
-                    categorizedPolicy[value] = "<div id='" + category[-1] + "'>" + "<b>" + categorizedPolicy[value]
-                try:
-                    categorizedPolicy[value+25] = categorizedPolicy[value+25] + "</b></div>"
-                except:
-                    categorizedPolicy[value] = categorizedPolicy[value] + "</b></div>"
-    return(" ".join(categorizedPolicy))
+        categories = [datacontroller, purpose, legalbasis, recipients, retention,request, profiling,personaldata ]
+        for category in categories:
+            value = category[-2]
+                # try:
+                #     categorizedPolicy[value-25] = "<h1> SECTION:" + category[-1] + "</h1>" + "<div id='" + category[-1] + "'>" + "<b>" + categorizedPolicy[value-25]
+                # except:
+                #     categorizedPolicy[value] = "<div id='" + category[-1] + "'>" + "<b>" + categorizedPolicy[value]
+                # try:
+                #     categorizedPolicy[value+25] = categorizedPolicy[value+25] + "</b></div>"
+                # except:
+                #     categorizedPolicy[value] = categorizedPolicy[value] + "</b></div>"
+
+                
+            try:
+                categorizedPolicy[value-15] = "<h1 id=' SECTION:" + category[-1] + " '>" + categorizedPolicy[value-15]
+            except:
+                categorizedPolicy[value] = "<h1 SECTION:" + category[-1] + " >" + categorizedPolicy[value]
+        print(categorizedPolicy[3023-25:3023])
+        return(" ".join(categorizedPolicy))
+    except:
+        return(False)
+
+
+    #     for value in category:
+
+    #         if type(value) == str:
+    #             next
+    #         else:
+
+    #             # try:
+    #             #     categorizedPolicy[value-25] = "<h1> SECTION:" + category[-1] + "</h1>" + "<div id='" + category[-1] + "'>" + "<b>" + categorizedPolicy[value-25]
+    #             # except:
+    #             #     categorizedPolicy[value] = "<div id='" + category[-1] + "'>" + "<b>" + categorizedPolicy[value]
+    #             # try:
+    #             #     categorizedPolicy[value+25] = categorizedPolicy[value+25] + "</b></div>"
+    #             # except:
+    #             #     categorizedPolicy[value] = categorizedPolicy[value] + "</b></div>"
+
+                
+    #             try:
+    #                 categorizedPolicy[value-15] = "<h1 id=' SECTION:" + category[-1] + " '>" + categorizedPolicy[value-15]
+    #             except:
+    #                 categorizedPolicy[value] = "<h1 SECTION:" + category[-1] + " >" + categorizedPolicy[value]
+    # print(categorizedPolicy[3023-25:3023])
+    # return(" ".join(categorizedPolicy))
 
     #//
 
@@ -285,154 +316,42 @@ names=['lucas', 'pieter' , 'geit']
 app = Flask(__name__)
 print("NewSession------------------")
 
-@app.route('/nav',  methods=['POST', 'GET'])
-def navigation():
-    return(render_template('navigationpage.html', content=["<h1 datacontroller >Eerste</h1>", "Tweede", "Derde", "Vierde"]))
+@app.errorhandler(500)
+def server_error(e):
 
+    email_admin(message="Server error", url=request.url, error=e)
+
+    app.logger.error(f"Server error: {request.url}")
+
+    return "hi", 500
+
+
+@app.route('/about')
+def about():
+    return(render_template('about.html'))
 
 
 @app.route('/',  methods=['POST', 'GET'])
 def mainIndex():
     if request.method == 'POST':
         print("POSTER")
-         # check if the post request has the file part
         if 'file' not in request.files:
             if 'urlInput' in request.form:
+                print("hi")
                 return(render_template('checktext.html', type='get', checkText=webScraper(request.form['urlInput'])))
             else:
-                topic = 'datacontroller'
                 policy = request.form['description']
                 cleantext = BeautifulSoup(policy, "lxml").text
-                # return(render_template('index6.html'))
-                print(len(returnCategories(cleantext).split('<h1')))
-                return(render_template('navigationpage.html', content=returnCategories(cleantext).split('<h1')))
-                # return (str(returnCategories(cleantext)))
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit an empty part without filename
-        if file.filename == '':
-            return ('upload something next time')
-        if file and allowed_file(file.filename):
-            x = alles2('datacontroller',str(file.read()))
-            return render_template('index6.html', type='post', policycontent=(x))
+                text = returnCategories(cleantext)
+                if text == False:
+                    return("false")
+                else:
+                    return(render_template('navigationpage.html', content=text.split('<h1')))
     print(os.listdir('policies'))
     policies = []
     for policy in os.listdir('policies'):
         policies.append(policy.split(".")[0])
     return (render_template('index.html', topics=policies))
-
-@app.route('/lucas', methods=['POST', 'GET'])
-def lucas():
-    error = None
-    if request.method == 'POST':
-        topic = request.form['topic']
-        policy = request.form['description']
-        return (alles2(topic,policy))
-    # the code below is executed if the request method
-    # was GET or the credentials were invalid
-    return render_template('index.html', error=error)
-
-@app.route('/hello/')
-@app.route('/hello/<name>')
-def hello(name=None):
-    return render_template('test.html', name=name)
-
-
-@app.route('/index6/', methods=['POST', 'GET'])
-def index6():
-    if request.method == 'POST':
-         # check if the post request has the file part
-        if 'file' not in request.files:
-            if 'urlInput' in request.form:
-                return(render_template('checktext.html', type='get', checkText=webScraper(request.form['urlInput'])))
-            else:
-                topic = 'datacontroller'
-                policy = request.form['description']
-                cleantext = BeautifulSoup(policy, "lxml").text
-                return (str(returnCategories(cleantext)))
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit an empty part without filename
-        if file.filename == '':
-            return ('upload something next time')
-        if file and allowed_file(file.filename):
-            x = alles2('datacontroller',str(file.read()))
-            return render_template('index6.html', type='post', policycontent=(x))
-    print(os.listdir('policies'))
-    policies = []
-    for policy in os.listdir('policies'):
-        policies.append(policy.split(".")[0])
-    return (render_template('index6.html', type='get', topics=policies))
-
-
-@app.route('/text')
-def hello_world():
-    f = open("text.txt", "r")
-    return(escape(f.read()))
-
-
-@app.route('/index/')
-@app.route('/index/<name>')
-def index(name=None):
-    return render_template('index.html', name=names)
-
-
-
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-    error = None
-    if request.method == 'POST':
-        return (request.form['description'])
-    # the code below is executed if the request method
-    # was GET or the credentials were invalid
-    return render_template('test2.html', error=error)
-
-
-@app.route('/eco/<name>')
-def eco(name=None):
-    lucas = "zz"
-    return(lucas)
-
-
-
-
-@app.route('/test3', methods=['POST', 'GET'])
-def test3():
-    return render_template('test3.html')
-
-UPLOAD_FOLDER = '/media/lucasdegeus/Storage/thesisCode/uploads'
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-@app.route('/nieuwe', methods=['GET', 'POST'])
-def upload_file():
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            return ('upload something next time')
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit an empty part without filename
-        if file.filename == '':
-            return ('upload something next time')
-        if file and allowed_file(file.filename):
-            x = alles2('datacontroller',str(file.read()))
-            print(request.form.get('id'))
-            return (str(request))
-    return '''
-    <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data>
-      <input type=file name=file>
-      <input id="prodId" value="{{ request.form.id }}" placeholder="test" type="hidden">
-      <input type=submit value=Upload>
-    </form>
-    '''
 
 @app.route('/_add_numbers')
 def add_numbers():
@@ -441,6 +360,7 @@ def add_numbers():
     c = request.args.get('policy')
     policycontent = open("policies/" + c + ".txt",encoding="utf8").read()
     return jsonify(policycontent)
+
 
 if __name__ == '__main__':
     # app.run(host='0.0.0.0')
