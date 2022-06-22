@@ -9,7 +9,7 @@ jusText==2.2.0
 keyring==10.6.0
 keyrings.alt==3.0
 lxml==4.5.1
-numpy==1.16.6
+numpy==1.22.0
 olefile==0.45.1
 Pillow==5.1.0
 PyBluez==0.18
